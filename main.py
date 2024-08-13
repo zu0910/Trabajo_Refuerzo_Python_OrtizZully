@@ -6,8 +6,8 @@ def Openmenu():
         info=json.load(openfile)
         return info
 def Savemenu(midato):
-    with open("menu.json", encoding="utf8") as openfile:
-        json.load(midato,openfile)
+    with open("menu.json", "w") as mysave:
+        json.dump(midato,mysave)
         
 def Openpagos():
     info=[]
@@ -15,8 +15,8 @@ def Openpagos():
         info=json.load(openfile)
         return info
 def Savepagos(midato):
-    with open("pagos.json", encoding="utf8") as openfile:
-        json.load(midato,openfile)
+    with open("pagos.json", "w") as mysave:
+        json.dump(midato,mysave)
 
 
 def Openpedidos():
@@ -25,8 +25,8 @@ def Openpedidos():
         info=json.load(openfile)
         return info
 def Savepedidos(midato):
-    with open("pedidos.json", encoding="utf8") as openfile:
-        json.load(midato,openfile)
+    with open("pedidos.json", "w") as mysave:
+        json.dump(midato,mysave)
     
 booleanito=True
 while booleanito==True:
@@ -58,46 +58,51 @@ while booleanito==True:
                 print(" __________________ ENTRADA __________________ \n")
                 for i in menucito["menu"]:
                     if i["categoria"]=="entrada":
-                        print(" - " , i["nombre"], "  $:" , i["precio"])
+                        print(" - " , i["nombre"], "  $" , i["precio"])
                         print("")
 
                 print(" __________________ PLATO FUERTE  _______________\n ")
                 for i in menucito["menu"]:
                     if i["categoria"]=="plato_fuerte":
-                        print(" - " , i["nombre"], "  $:" , i["precio"])
+                        print(" - " , i["nombre"], "  $" , i["precio"])
+                        print("")
 
                 print(" __________________ BEBIDA ________________________\n ")
                 for i in menucito["menu"]:
                     if i["categoria"]=="bebida":
-                        print(" - " , i["nombre"], "  $:" , i["precio"])
+                        print(" - " , i["nombre"], "  $" , i["precio"])
+                        print("")
 
             elif opci==2:
 
                 NomClien=input("Por favor ingresa su nombre: \n")
 
+                print("------------- WELCOME ",NomClien," ----------------")
                 print("""
-                ------------- WELCOME ----------------
                      ¿Que categoria deseas pedir primero?: \n
                       a. Entrada
                       b. Plato fuerte
                       c. Bebida
                 """)
                 cate=input("Ingrese la categoria deseada: \n")
-                pedidos=Openpedidos
                 if cate=="a":
-
                     menucito=Openmenu()
+                    pedidos=Openpedidos()
+
                     print(" __________________ ENTRADA __________________ \n")
                     for i in menucito["menu"]:
                         if i["categoria"]=="entrada":
                             print(" - ", i["nombre"], "  $", i["precio"])
                             print("")
-                    NomEntra=input("Por favor ingrese el nombre de entrada: ")
-                   
 
-                if cate=="b":
+                    NomEntra=input("Por favor ingrese el nombre del plato de entrada: ")
+                    for i in menucito["menu"]:
+                        if i["nombre"]==NomEntra:
+                            pedidos.append({"cliente": NomClien, "items": {"categoria":i["categoria"], "nombre":i["nombre"],"precio": i["precio"]}})
+                    Savepedidos(pedidos)
+                     
+                elif cate=="b":
                     menucito=Openmenu()
-                    Savepedidos(menucito)
                     print(" __________________ PLATO FUERTE __________________ \n")
                     for i in menucito["menu"]:
                         if i["categoria"]=="entrada":
@@ -105,7 +110,7 @@ while booleanito==True:
                             print("")
                     NomPlato=input("Por favor ingrese el nombre del plato fuerte: ")
 
-                if cate=="c":
+                elif cate=="c":
                     menucito=Openmenu()
                     print(" __________________ BEBIDAS __________________ \n")
                     for i in menucito["menu"]:
@@ -114,6 +119,8 @@ while booleanito==True:
                             print("")
                     NomBebi=input("Por favor ingrese el nombre de la bebida: ")
                     print("")
+                
+
 
 
 
