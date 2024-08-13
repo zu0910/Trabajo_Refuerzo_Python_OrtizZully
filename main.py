@@ -113,6 +113,7 @@ while booleanito==True:
                             print(" - ", i["nombre"], "  $", i["precio"])
                             print("")
                     NomBebi=input("Por favor ingrese el nombre de la bebida: ")
+                    print("")
 
 
 
