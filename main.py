@@ -51,12 +51,13 @@ while booleanito:# Mientras el booleanito sea verdadero se hara
 ///////////////////////////////////////////////////////////////////
 -------------------------  MOLIPOLLITO  ---------------------------
                     Bienvenidos a MoliPollito
-          1). Realizar pedido
-          2). Consultar pedido
-          3). Cambiar estado de pedido
-          4). Registrar pago
-          5). Cancelar pedido
-          0). Finalizar
+          1). Realizar pedido.
+          2). Consultar pedido.
+          3). Cambiar estado de pedido.
+          4). Registrar pago.
+          5). Cancelar pedido.
+          0). Finalizar.
+
 -------------------------------------------------------------------         
 """)
     opc = int(input("Ingresa una de las opciones anteriores: \n"))
@@ -70,7 +71,7 @@ while booleanito:# Mientras el booleanito sea verdadero se hara
         # se crea un ssegundo booleano ya que utilizare un submenu
         booleanito2 = True
         while booleanito2:
-            # sub menu
+            # sub menu para seleccion de la categoria
             print("            ---------------- Welcome", nomClien , "---------------" )
             print("""
             ¿Qué categoría deseas pedir?: 
@@ -88,13 +89,14 @@ while booleanito:# Mientras el booleanito sea verdadero se hara
             menucito = Openmenu()#Abrira el json de menu
             #Depende de la opcion que el cliente ejecuta se le mostrara los nombres y precios de cada categoria y le preguntara que el nombre del plato que guste comprar
             if cate == "a":
-                print(" __________________ ENTRADA __________________ \n")
-                #para i en menucito que es el json menu
+                print(" ______ ENTRADA ______ \n")
+                #para i en menucito que es el json menu 
                 for i in menucito["menu"]:
-                    #aca solo le imprimira las cateteteref vjnvdfn
+                    #aca solo le imprimira las categorias dde entrada 
                     if i["categoria"] == "entrada":
                         print(f" - {i['nombre']}  $ {i['precio']}\n")
-                
+
+                # y el cliente tendra que escribir tal cual como aparece en el menu
                 NomPlato = input("Por favor ingrese el nombre del plato de entrada: \n")
                 print("")
                 for i in menucito["menu"]:
@@ -105,11 +107,11 @@ while booleanito:# Mientras el booleanito sea verdadero se hara
                 system("clear")
 
             elif cate == "b":
-                print(" __________________ PLATO FUERTE __________________ \n")
+                print(" ______ PLATO FUERTE ______ \n")
                 for i in menucito["menu"]:
                     if i["categoria"] == "plato_fuerte":
                         print(f" - {i['nombre']}  $ {i['precio']} \n")
-                
+                # Lo que el cliente ingrese se
                 NomPlato = input("Por favor ingrese el nombre del plato fuerte: \n")
                 print("")
                 for i in menucito["menu"]:
@@ -120,10 +122,11 @@ while booleanito:# Mientras el booleanito sea verdadero se hara
                 system("clear")
                 
             elif cate == "c":
-                print(" __________________ BEBIDAS __________________ \n")
+                print(" ______ BEBIDAS ______ \n")
                 for i in menucito["menu"]:
                     if i["categoria"] == "bebida":
                         print(f" - {i['nombre']}  $ {i['precio']} \n")
+
                 print("")
                 
                 NomPlato = input("Por favor ingrese el nombre de la bebida: \n")
@@ -135,6 +138,7 @@ while booleanito:# Mientras el booleanito sea verdadero se hara
                 system("clear")
             
             elif cate == "d":
+                # finaliza el pedido y guarda todos los datos ingresados al json pedidos
                 pedidos = Openpedidos()
                 pedidos.append(pedido)
                 Savepedidos(pedidos)
@@ -147,10 +151,9 @@ while booleanito:# Mientras el booleanito sea verdadero se hara
                 print("Opción inválida. Intente de nuevo.")
     
     elif opc == 2:
+        # Lo unico que hara es mostrar lo que ya esta guardado en el json pedidos 
         pedidos = Openpedidos()
         cliente = input("Ingresa el nombre del cliente: \n")
-
-        system("clear")
 
         for pedido in pedidos:
             if pedido["cliente"]== cliente:
@@ -161,13 +164,14 @@ while booleanito:# Mientras el booleanito sea verdadero se hara
                     print(f" - {item['nombre']} ($ {item['precio']})")
                 print("\n")
 
-        system("clear")
+        
     
     elif opc == 3:
+        # se le cambiara el estado del cliente teniendo en cuenta que cumpla las condiciones para realizar el proceso de cambio de estado
         pedidos = Openpedidos()
         cliente = input("Ingresa el nombre del cliente: \n")
         print("")
-        system("clear")
+        
         for i in pedido: 
             if pedido["cliente"] == cliente:
              print("Estado del pedido:", pedido["estado"])
@@ -181,11 +185,13 @@ while booleanito:# Mientras el booleanito sea verdadero se hara
                 Savepedidos(pedidos)
                 print("")
                 print(f"Estado del pedido de {cliente} actualizado a {NewStatus}.")
-        system("clear")
+       
+
     elif opc == 4:
+        #Al darle la suma al cliente el estado automaticamente pasa a pagado
         pedidos = Openpedidos()
         cliente = input("Ingresa el nombre del cliente para registrar el pago: \n")
-        system("clear")
+        
         for pedido in pedidos:
             if pedido["cliente"] == cliente and pedido["estado"] != "pagado":
                 total = calcular_total(pedido)
@@ -194,19 +200,25 @@ while booleanito:# Mientras el booleanito sea verdadero se hara
                 Savepedidos(pedidos)
                 print("")
                 print(f"Pago registrado para {cliente} por un total de ${total}.")
-        system("clear")
+        
+
     elif opc == 5:
+        #Para poder cancelar el estado debe estar en creado si no, no se lo podra cancelar 
         pedidos = Openpedidos()
         cliente = input("Ingresa el nombre del cliente para cancelar el pedido: \n")
-        system("clear")
+        
         for pedido in pedidos:
             if pedido["cliente"] == cliente and pedido["estado"] == "creado":
                 pedido["estado"] = "cancelado"
                 Savepedidos(pedidos)
                 print("")
                 print(f"Pedido de {cliente} cancelado exitosamente.")
-        system("clear")
+
+       
+
     elif opc == 0:
+        #Finalizar programa 
         print("¡Gracias por usar MoliPollito! ¡Hasta luego!")
         booleanito = False
     
+# Elaborado por Zully Fernanda Ortiz Avendaño

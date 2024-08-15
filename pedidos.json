@@ -151,5 +151,32 @@
             }
         ],
         "estado": "pagado"
+    },
+    {
+        "cliente": "Luis ",
+        "items": [
+            {
+                "categoria": "plato_fuerte",
+                "nombre": "Lechona",
+                "precio": 25000
+            },
+            {
+                "categoria": "bebida",
+                "nombre": "Vino",
+                "precio": 8000
+            }
+        ],
+        "estado": "creado"
+    },
+    {
+        "cliente": "Camilo",
+        "items": [
+            {
+                "categoria": "entrada",
+                "nombre": "Papas Fritas",
+                "precio": 5000
+            }
+        ],
+        "estado": "pagado"
     }
 ]

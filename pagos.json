@@ -23,5 +23,10 @@
         "cliente": "Fernando",
         "total": 39000,
         "fecha_pago": "2024-08-14 22:31:13"
+    },
+    {
+        "cliente": "Camilo",
+        "total": 5000,
+        "fecha_pago": "2024-08-15 07:56:44"
     }
 ]
